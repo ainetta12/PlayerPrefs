@@ -6,27 +6,40 @@ using UnityEngine.UI;
 public class Manager : MonoBehaviour
 {
 
-    [SerializeField] private Text checkpointText;   
+    [SerializeField] private Text userNameText;   
     [SerializeField] private Text userPositionText;
 
    
-    [SerializeField] private string checkpointText;
+    [SerializeField] public int userName;
     [SerializeField] private Vector3 userPosition;
+
+    Transform playerPosition; 
 
     
     // Start is called before the first frame update
     void Start()
     {
+        playerPosition = GameObject.Find("Player").GetComponent<Transform>();
         LoadData();
     }
 
+    public void SaveData()
+    {
+        PlayerPrefs.SetInt("name", userName);    
+        PlayerPrefs.SetFloat("positionX", playerPosition.position.x);
+        PlayerPrefs.SetFloat("positionY", playerPosition.position.y);
+        PlayerPrefs.SetFloat("positionZ", playerPosition.position.z);
+
+        LoadData();
+    }
 
     void LoadData()
     {
-        checkpointText.text = "Checkpoint:" + PlayerPrefs.GetString("checkpoint", "No point");
-        userPositionText.text = "Player position:" + PlayerPrefs.GetFloat("positionX", 0).ToString() + "x" +
-                                PlayerPrefs.GetFloat("positionY", 0).ToString() + "y" + 
-                                PlayerPrefs.GetFloat("positionZ", 0).ToString() + "z";
+        userNameText.text = "User name:" + PlayerPrefs.GetInt("name");
+        userPositionText.text = "Player position:" + PlayerPrefs.GetFloat("positionX", 985.2742f).ToString() + "x" +
+                                PlayerPrefs.GetFloat("positionY", 548.4684f).ToString() + "y" + 
+                                PlayerPrefs.GetFloat("positionZ", 32.57221f).ToString() + "z";
     }
 
+       
 }

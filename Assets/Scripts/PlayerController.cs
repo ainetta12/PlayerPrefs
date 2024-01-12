@@ -21,10 +21,14 @@ public class PlayerController : MonoBehaviour
        private float turnSmoothTime = 0.1f;
        private bool _isGrounded;
 
+       Manager _manager;
+
         void Awake()
        {
            _controller = GetComponent<CharacterController>();
            _camera = Camera.main.transform;
+
+           _manager = GameObject.Find("Manager").GetComponent<Manager>();
        }
 
        void Update()
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour
            _vertical = Input.GetAxisRaw("Vertical");
 
            Movement();
+        
        }
 
        void Movement()
@@ -50,5 +55,32 @@ public class PlayerController : MonoBehaviour
            }
 
        }
+
+       void OnTriggerEnter (Collider other)
+       {
+        if(other.gameObject.layer == 7)
+        {
+            _manager.userName = 1;
+            _manager.SaveData();
+            
+        }
+
+        if(other.gameObject.layer == 8)
+        {
+            _manager.userName = 2;
+            _manager.SaveData();
+
+        }
+
+        if(other.gameObject.layer == 9)
+        {
+            _manager.userName = 3;
+            _manager.SaveData();
+
+        }
+
+       }
+
+
 
 }       
