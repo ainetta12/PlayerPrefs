@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
        
        private CharacterController _controller;
@@ -46,7 +46,7 @@ public class CharacterController : MonoBehaviour
                float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVeloity, turnSmoothTime);
                transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
                Vector3 moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-               _controller.Move(moveDirection * playerSpeed * Time.deltaTime);
+               _controller.Move(moveDirection * _playerSpeed * Time.deltaTime);
            }
 
        }
